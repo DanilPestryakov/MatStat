@@ -44,13 +44,13 @@ def plot_regr(x, y, type):
     print('MNA')
     print('beta_0 = ' + str(np.around(Abeta_0, decimals=2)))
     print('beta_1 = ' + str(np.around(Abeta_1, decimals=2)))
-    plt.scatter(x[1:-2], y[1:-2], label='Выборка', edgecolor='navy')
+    plt.scatter(x, y, label='Выборка', edgecolor='navy')
     plt.plot(x, x * (2 * np.ones(len(x))) + 2 * np.ones(len(x)), label='Модель', color='blue')
     plt.plot(x, x * (Kbeta_1 * np.ones(len(x))) + Kbeta_0 * np.ones(len(x)), label='МHK', color='deepskyblue')
     plt.plot(x, x * (Abeta_1 * np.ones(len(x))) + Abeta_0 * np.ones(len(x)), label='МHM', color='indigo')
     plt.xlabel("x")
     plt.ylabel("y")
-    plt.xlim([-1.8, 2])
+    plt.xlim([-1.9, 2.1])
     plt.legend()
     plt.title(type)
     plt.savefig(type + '.png', format='png')
@@ -58,7 +58,7 @@ def plot_regr(x, y, type):
 
 
 if __name__ == '__main__':
-    x = np.arange(-1.8, 2, 0.2)
+    x = np.arange(-1.8, 2.2, 0.2)
     y = 2 * x + 2 * np.ones(len(x)) + np.random.normal(0, 1, size=len(x))
     types = ['Без возмущений', 'С возмущениями']
     plot_regr(x, y, types[0])
