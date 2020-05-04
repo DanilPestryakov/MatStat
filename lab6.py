@@ -34,16 +34,32 @@ def mna_coefficients(x, y):
     beta_0 = np.median(y) - beta_1 * np.median(x)
     return beta_0, beta_1
 
+def dist(y1, y2):
+    sum = 0
+    for i in range(len(y1)):
+        sum += ((y1[i] - y2[i]) * (y1[i] - y2[i]))
+    return sum
 
 def plot_regr(x, y, type):
     Kbeta_0, Kbeta_1 = mnk_coefficients(x, y)
+    y1 = x * (Kbeta_1 * np.ones(len(x))) + Kbeta_0 * np.ones(len(x))
+    y2 = x * (2 * np.ones(len(x))) + 2 * np.ones(len(x))
+    distance1 = dist(y, y1)
+    distance2 = dist(y2, y1)
     print('MNK')
     print('beta_0 = ' + str(np.around(Kbeta_0, decimals=2)))
     print('beta_1 = ' + str(np.around(Kbeta_1, decimals=2)))
+    print('distance1 = ' + str(np.around(distance1, decimals=2)))
+    print('distance2 = ' + str(np.around(distance2, decimals=2)))
     Abeta_0, Abeta_1 = mna_coefficients(x, y)
+    y1 = x * (Abeta_1 * np.ones(len(x))) + Abeta_0 * np.ones(len(x))
+    distance1 = dist(y, y1)
+    distance2 = dist(y2, y1)
     print('MNA')
     print('beta_0 = ' + str(np.around(Abeta_0, decimals=2)))
     print('beta_1 = ' + str(np.around(Abeta_1, decimals=2)))
+    print('distance1 = ' + str(np.around(distance1, decimals=2)))
+    print('distance2 = ' + str(np.around(distance2, decimals=2)))
     plt.scatter(x, y, label='Выборка', edgecolor='navy')
     plt.plot(x, x * (2 * np.ones(len(x))) + 2 * np.ones(len(x)), label='Модель', color='blue')
     plt.plot(x, x * (Kbeta_1 * np.ones(len(x))) + Kbeta_0 * np.ones(len(x)), label='МHK', color='deepskyblue')
